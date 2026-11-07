@@ -5,9 +5,16 @@ plugins {
 }
 
 android {
-    namespace "com.example.vortax"
-    compileSdkVersion flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersion
+    namespace "com.example.vortax" // Sesuaikan dengan ID paket aplikasi kamu
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.vortax"
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName "1.0.0"
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -17,26 +24,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-    defaultConfig {
-        applicationId "com.example.vortax"
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
-    }
-
-    buildTypes {
-        release {
-            signingConfig signingConfigs.debug
-        }
-    }
 }
 
 flutter {
     source '../..'
 }
 
-dependencies {
-}
 
