@@ -1,8 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'bug_group_page.dart';
+import 'bug_sender.dart';
+import 'admin_page.dart';
+import 'change_password_page.dart';
+import 'chat_room_page.dart';
 
 void main() {
   runApp(const VortaxApp());
+}
+
+// ─── SETTINGS & PREFERENCES STUBS ─────────────────────────────────────────────
+class UserSettings {
+  bool? darkMode;
+  bool? amoledBackground;
+  bool? materialTheme;
+  bool? enableDiscordPresence;
+  bool? useFramelessWindow;
+
+  UserSettings({
+    this.darkMode = true,
+    this.amoledBackground = false,
+    this.materialTheme = false,
+    this.enableDiscordPresence = false,
+    this.useFramelessWindow = true,
+  });
+}
+
+class Settings {
+  Future<UserSettings> getSettings() async {
+    return UserSettings();
+  }
+}
+
+class UserPreferencesData {
+  UserPreferencesData();
+}
+
+class UserPreferences {
+  static Future<UserPreferencesData> getUserPreferences() async {
+    return UserPreferencesData();
+  }
+}
+
+Future<int> getTheme() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getInt('themeId') ?? 1;
+}
+
+Future<void> setTheme(int id) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setInt('themeId', id);
+}
+
+void showToast(String message) {
+  // no-op stub
+}
+
+// ─── RUNTIME & LOGGER STUBS ──────────────────────────────────────────────────
+class _Logger {
+  final String name;
+  _Logger(this.name);
+
+  void log(String message, {bool addToBuffer = false}) {
+    print('[$name] $message');
+  }
+}
+
+class Logs {
+  static final _Logger app = _Logger('APP');
+
+  static Future<void> writeAllLogs() async {
+    // no-op stub
+  }
+}
+
+class AppVersion {
+  static String current = '1.0.0';
+
+  static void init() {
+    // no-op stub
+  }
 }
 
 class VortaxApp extends StatelessWidget {
@@ -22,7 +101,7 @@ class VortaxApp extends StatelessWidget {
   }
 }
 
-// ==================== 1. SPLASH SCREEN (splash.mp4) ====================
+// ==================== 1. SPLASH SCREEN ====================
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -100,7 +179,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-// ==================== 2. LOGIN PAGE (landing.mp4 + VD Theme) ====================
+// ==================== 2. LOGIN PAGE ====================
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -146,7 +225,6 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Stack(
         children: [
-          // Background Video
           _bgController.value.isInitialized
               ? SizedBox.expand(
                   child: FittedBox(
@@ -159,22 +237,15 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 )
               : Container(color: const Color(0xFF0A0E17)),
-
-          // Overlay Transparan Gelap (VD)
           Container(color: Colors.black.withOpacity(0.55)),
-
-          // Form Content
           Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Logo Voltex
                   Image.asset('assets/logo.png', height: 110),
                   const SizedBox(height: 20),
-
-                  // Container Login Card
                   Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
@@ -251,7 +322,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-// ==================== 3. DASHBOARD PAGE (VD + Assets) ====================
+// ==================== 3. DASHBOARD PAGE ====================
 class DashboardPage extends StatefulWidget {
   final String username;
   const DashboardPage({super.key, required this.username});
@@ -261,6 +332,9 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  final String userRole = "developer"; 
+  final String sessionKey = "dummy_session_key_123";
+
   void _showPaperPopup() {
     showDialog(
       context: context,
@@ -269,10 +343,7 @@ class _DashboardPageState extends State<DashboardPage> {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            // Background Kertas Gulung Tua
             Image.asset('assets/popup_paper.png', width: 300),
-
-            // Teks / Isi Pengumuman Dalam Kertas
             Positioned(
               width: 220,
               child: Column(
@@ -299,9 +370,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.brown,
-                    ),
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.brown),
                     onPressed: () => Navigator.pop(context),
                     child: const Text("CLOSE", style: TextStyle(color: Colors.white)),
                   )
@@ -340,7 +409,6 @@ class _DashboardPageState extends State<DashboardPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header Banner Laut / Kapal
                 ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: Stack(
@@ -351,10 +419,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         width: double.infinity,
                         fit: BoxFit.cover,
                       ),
-                      Container(
-                        height: 140,
-                        color: Colors.black.withOpacity(0.4),
-                      ),
+                      Container(height: 140, color: Colors.black.withOpacity(0.4)),
                       Positioned(
                         left: 16,
                         bottom: 16,
@@ -371,8 +436,6 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-
-                // Grid Menu Dashboard
                 GridView.count(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -380,25 +443,98 @@ class _DashboardPageState extends State<DashboardPage> {
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
                   children: [
-                    _buildMenuCard(Icons.flash_on, "Exploit Hub", Colors.amber),
-                    _buildMenuCard(Icons.security, "Shield Panel", Colors.blueAccent),
-                    _buildMenuCard(Icons.description, "Notice Paper", Colors.orange, onTap: _showPaperPopup),
-                    _buildMenuCard(Icons.settings, "System Info", Colors.purpleAccent),
+                    _buildMenuCard(
+                      Icons.group_work, 
+                      "Bug Group", 
+                      Colors.redAccent, 
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BugGroupPage(
+                              sessionKey: sessionKey,
+                              role: userRole,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    _buildMenuCard(
+                      Icons.bug_report, 
+                      "Bug Sender", 
+                      Colors.blueAccent, 
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BugSenderPage(
+                              sessionKey: sessionKey,
+                              username: widget.username,
+                              role: userRole,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    _buildMenuCard(
+                      Icons.admin_panel_settings, 
+                      "Admin Panel", 
+                      Colors.purpleAccent, 
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AdminPage(sessionKey: sessionKey),
+                          ),
+                        );
+                      },
+                    ),
+                    _buildMenuCard(
+                      Icons.chat, 
+                      "Global Chat", 
+                      Colors.greenAccent, 
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChatRoomPage(username: widget.username),
+                          ),
+                        );
+                      },
+                    ),
+                    _buildMenuCard(
+                      Icons.lock_reset, 
+                      "Ganti Password", 
+                      Colors.orangeAccent, 
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChangePasswordPage(
+                              username: widget.username,
+                              sessionKey: sessionKey,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    _buildMenuCard(
+                      Icons.description, 
+                      "Notice Paper", 
+                      Colors.amber, 
+                      onTap: _showPaperPopup,
+                    ),
                   ],
                 ),
                 const SizedBox(height: 80),
               ],
             ),
           ),
-
-          // Karakter Luffy di Pojok Bawah (reze.png)
           Positioned(
             bottom: 0,
             right: 10,
             child: Image.asset('assets/reze.png', height: 150),
           ),
-
-          // Karakter Luffy Ngintip (mobil.png)
           Positioned(
             bottom: 0,
             left: -10,
