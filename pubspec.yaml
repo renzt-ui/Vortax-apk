@@ -1,14 +1,44 @@
 name: vortex_apk
-description: "A new Flutter project."
+description: "Vortax VD Flutter Project"
 publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
+  video_player: ^2.8.0
+  shared_preferences: ^2.2.2
+  geolocator: ^10.1.0
+  hive_flutter: ^1.1.0
+  awesome_notifications: ^0.8.2
+  webview_flutter: ^4.4.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
 
 flutter:
   uses-material-design: true
+
+  # Asset One Piece & Tema VD
+  assets:
+    - assets/splash.mp4
+    - assets/landing.mp4
+    - assets/logo.png
+    - assets/ornes_1.png
+    - assets/ornes_2.png
+    - assets/popup_paper.png
+    - assets/reze.png
+    - assets/mobil.png
+
+  fonts:
+    - family: Orbitron
+      fonts:
+        - asset: assets/fonts/Orbitron-Regular.ttf
+    - family: ShareTechMono
+      fonts:
+        - asset: assets/fonts/ShareTechMono-Regular.ttf
