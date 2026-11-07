@@ -7,9 +7,6 @@ plugins {
 android {
     namespace "com.example.vortax"
     compileSdkVersion flutter.compileSdkVersion
-    targetSdkVersion flutter.targetSdkVersion
-    versionCode flutterVersionCode.toInteger()
-    versionName flutterVersionName
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -38,3 +35,4 @@ android {
 flutter {
     source '../..'
 }
+
