@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'bug_group_page.dart';
-import 'bug_sender.dart';
-import 'admin_page.dart';
-import 'change_password_page.dart';
-import 'chat_room_page.dart';
 
 void main() {
   runApp(const VortaxApp());
@@ -29,9 +24,7 @@ class UserSettings {
 }
 
 class Settings {
-  Future<UserSettings> getSettings() async {
-    return UserSettings();
-  }
+  Future<UserSettings> getSettings() async => UserSettings();
 }
 
 class UserPreferencesData {
@@ -39,9 +32,7 @@ class UserPreferencesData {
 }
 
 class UserPreferences {
-  static Future<UserPreferencesData> getUserPreferences() async {
-    return UserPreferencesData();
-  }
+  static Future<UserPreferencesData> getUserPreferences() async => UserPreferencesData();
 }
 
 Future<int> getTheme() async {
@@ -54,34 +45,22 @@ Future<void> setTheme(int id) async {
   await prefs.setInt('themeId', id);
 }
 
-void showToast(String message) {
-  // no-op stub
-}
+void showToast(String message) {}
 
-// ─── RUNTIME & LOGGER STUBS ──────────────────────────────────────────────────
 class _Logger {
   final String name;
   _Logger(this.name);
-
-  void log(String message, {bool addToBuffer = false}) {
-    print('[$name] $message');
-  }
+  void log(String message, {bool addToBuffer = false}) {}
 }
 
 class Logs {
   static final _Logger app = _Logger('APP');
-
-  static Future<void> writeAllLogs() async {
-    // no-op stub
-  }
+  static Future<void> writeAllLogs() async {}
 }
 
 class AppVersion {
   static String current = '1.0.0';
-
-  static void init() {
-    // no-op stub
-  }
+  static void init() {}
 }
 
 class VortaxApp extends StatelessWidget {
@@ -159,18 +138,13 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                   ),
                 )
-              : const Center(
-                  child: CircularProgressIndicator(color: Colors.blueAccent),
-                ),
+              : const Center(child: CircularProgressIndicator(color: Colors.blueAccent)),
           Positioned(
             bottom: 40,
             right: 20,
             child: TextButton(
               onPressed: _navigateToLogin,
-              child: const Text(
-                "SKIP >>",
-                style: TextStyle(color: Colors.white70, fontWeight: FontWeight.bold),
-              ),
+              child: const Text("SKIP >>", style: TextStyle(color: Colors.white70, fontWeight: FontWeight.bold)),
             ),
           )
         ],
@@ -264,10 +238,7 @@ class _LoginPageState extends State<LoginPage> {
                             prefixIcon: const Icon(Icons.person, color: Colors.blueAccent),
                             filled: true,
                             fillColor: Colors.white10,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide.none,
-                            ),
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -281,10 +252,7 @@ class _LoginPageState extends State<LoginPage> {
                             prefixIcon: const Icon(Icons.lock, color: Colors.blueAccent),
                             filled: true,
                             fillColor: Colors.white10,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide.none,
-                            ),
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -294,19 +262,10 @@ class _LoginPageState extends State<LoginPage> {
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blueAccent,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                             ),
                             onPressed: _handleLogin,
-                            child: const Text(
-                              "ENTER DASHBOARD",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
+                            child: const Text("ENTER DASHBOARD", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
                           ),
                         ),
                       ],
@@ -349,25 +308,9 @@ class _DashboardPageState extends State<DashboardPage> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
-                    "NOTICE",
-                    style: TextStyle(
-                      fontFamily: 'serif',
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.brown,
-                    ),
-                  ),
+                  const Text("NOTICE", style: TextStyle(fontFamily: 'serif', fontSize: 22, fontWeight: FontWeight.bold, color: Colors.brown)),
                   const SizedBox(height: 10),
-                  Text(
-                    "Welcome Captain ${widget.username}!\nVortax VD System fully operational.",
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.black87,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  Text("Welcome Captain ${widget.username}!\nVortax VD System fully operational.", textAlign: TextAlign.center, style: const TextStyle(fontSize: 14, color: Colors.black87, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(backgroundColor: Colors.brown),
@@ -396,10 +339,7 @@ class _DashboardPageState extends State<DashboardPage> {
           ],
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            onPressed: _showPaperPopup,
-          ),
+          IconButton(icon: const Icon(Icons.notifications), onPressed: _showPaperPopup),
         ],
       ),
       body: Stack(
@@ -413,24 +353,12 @@ class _DashboardPageState extends State<DashboardPage> {
                   borderRadius: BorderRadius.circular(16),
                   child: Stack(
                     children: [
-                      Image.asset(
-                        'assets/ornes_2.png',
-                        height: 140,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ),
+                      Image.asset('assets/ornes_2.png', height: 140, width: double.infinity, fit: BoxFit.cover),
                       Container(height: 140, color: Colors.black.withOpacity(0.4)),
                       Positioned(
                         left: 16,
                         bottom: 16,
-                        child: Text(
-                          "Welcome, ${widget.username}!",
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
+                        child: Text("Welcome, ${widget.username}!", style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
                       ),
                     ],
                   ),
@@ -443,103 +371,30 @@ class _DashboardPageState extends State<DashboardPage> {
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
                   children: [
-                    _buildMenuCard(
-                      Icons.group_work, 
-                      "Bug Group", 
-                      Colors.redAccent, 
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BugGroupPage(
-                              sessionKey: sessionKey,
-                              role: userRole,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    _buildMenuCard(
-                      Icons.bug_report, 
-                      "Bug Sender", 
-                      Colors.blueAccent, 
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BugSenderPage(
-                              sessionKey: sessionKey,
-                              username: widget.username,
-                              role: userRole,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    _buildMenuCard(
-                      Icons.admin_panel_settings, 
-                      "Admin Panel", 
-                      Colors.purpleAccent, 
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AdminPage(sessionKey: sessionKey),
-                          ),
-                        );
-                      },
-                    ),
-                    _buildMenuCard(
-                      Icons.chat, 
-                      "Global Chat", 
-                      Colors.greenAccent, 
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ChatRoomPage(username: widget.username),
-                          ),
-                        );
-                      },
-                    ),
-                    _buildMenuCard(
-                      Icons.lock_reset, 
-                      "Ganti Password", 
-                      Colors.orangeAccent, 
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ChangePasswordPage(
-                              username: widget.username,
-                              sessionKey: sessionKey,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    _buildMenuCard(
-                      Icons.description, 
-                      "Notice Paper", 
-                      Colors.amber, 
-                      onTap: _showPaperPopup,
-                    ),
+                    _buildMenuCard(Icons.group_work, "Bug Group", Colors.redAccent, onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => BugGroupPage(sessionKey: sessionKey, role: userRole)));
+                    }),
+                    _buildMenuCard(Icons.bug_report, "Bug Sender", Colors.blueAccent, onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => BugSenderPage(sessionKey: sessionKey, username: widget.username, role: userRole)));
+                    }),
+                    _buildMenuCard(Icons.admin_panel_settings, "Admin Panel", Colors.purpleAccent, onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => AdminPage(sessionKey: sessionKey)));
+                    }),
+                    _buildMenuCard(Icons.chat, "Global Chat", Colors.greenAccent, onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChatRoomPage(username: widget.username)));
+                    }),
+                    _buildMenuCard(Icons.lock_reset, "Ganti Password", Colors.orangeAccent, onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordPage(username: widget.username, sessionKey: sessionKey)));
+                    }),
+                    _buildMenuCard(Icons.description, "Notice Paper", Colors.amber, onTap: _showPaperPopup),
                   ],
                 ),
                 const SizedBox(height: 80),
               ],
             ),
           ),
-          Positioned(
-            bottom: 0,
-            right: 10,
-            child: Image.asset('assets/reze.png', height: 150),
-          ),
-          Positioned(
-            bottom: 0,
-            left: -10,
-            child: Image.asset('assets/mobil.png', height: 100),
-          ),
+          Positioned(bottom: 0, right: 10, child: Image.asset('assets/reze.png', height: 150)),
+          Positioned(bottom: 0, left: -10, child: Image.asset('assets/mobil.png', height: 100)),
         ],
       ),
     );
@@ -559,13 +414,80 @@ class _DashboardPageState extends State<DashboardPage> {
           children: [
             Icon(icon, size: 42, color: color),
             const SizedBox(height: 8),
-            Text(
-              title,
-              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
+            Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
           ],
         ),
       ),
+    );
+  }
+}
+
+// ==================== 4. SUB-PAGES (BUILT-IN) ====================
+class BugGroupPage extends StatelessWidget {
+  final String sessionKey;
+  final String role;
+  const BugGroupPage({super.key, required this.sessionKey, required this.role});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Bug Group Panel")),
+      body: const Center(child: Text("Bug Group Control Panel Active", style: TextStyle(color: Colors.white))),
+    );
+  }
+}
+
+class BugSenderPage extends StatelessWidget {
+  final String sessionKey;
+  final String username;
+  final String role;
+  const BugSenderPage({super.key, required this.sessionKey, required this.username, required this.role});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Bug Sender Panel")),
+      body: const Center(child: Text("Bug Sender Execution Ready", style: TextStyle(color: Colors.white))),
+    );
+  }
+}
+
+class AdminPage extends StatelessWidget {
+  final String sessionKey;
+  const AdminPage({super.key, required this.sessionKey});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Admin Panel")),
+      body: const Center(child: Text("Admin Controls Operational", style: TextStyle(color: Colors.white))),
+    );
+  }
+}
+
+class ChatRoomPage extends StatelessWidget {
+  final String username;
+  const ChatRoomPage({super.key, required this.username});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Global Chat")),
+      body: const Center(child: Text("Global Chat Room Active", style: TextStyle(color: Colors.white))),
+    );
+  }
+}
+
+class ChangePasswordPage extends StatelessWidget {
+  final String username;
+  final String sessionKey;
+  const ChangePasswordPage({super.key, required this.username, required this.sessionKey});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Ganti Password")),
+      body: const Center(child: Text("Password Configuration Active", style: TextStyle(color: Colors.white))),
     );
   }
 }
