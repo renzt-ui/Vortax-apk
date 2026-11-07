@@ -9,12 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  video_player: ^2.8.0
   shared_preferences: ^2.2.2
-  geolocator: ^10.1.0
-  hive_flutter: ^1.1.0
-  awesome_notifications: ^0.8.2
-  webview_flutter: ^4.4.2
 
 dev_dependencies:
   flutter_test:
@@ -23,14 +18,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-  # Hanya memuat asset gambar dan video yang benar-benar ada
-  assets:
-    - assets/splash.mp4
-    - assets/landing.mp4
-    - assets/logo.png
-    - assets/ornes_1.png
-    - assets/ornes_2.png
-    - assets/popup_paper.png
-    - assets/reze.png
-    - assets/mobil.png
