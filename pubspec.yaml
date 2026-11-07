@@ -24,7 +24,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  # Asset One Piece & Tema VD
+  # Hanya memuat asset gambar dan video yang benar-benar ada
   assets:
     - assets/splash.mp4
     - assets/landing.mp4
@@ -34,11 +34,3 @@ flutter:
     - assets/popup_paper.png
     - assets/reze.png
     - assets/mobil.png
-
-  fonts:
-    - family: Orbitron
-      fonts:
-        - asset: assets/fonts/Orbitron-Regular.ttf
-    - family: ShareTechMono
-      fonts:
-        - asset: assets/fonts/ShareTechMono-Regular.ttf
