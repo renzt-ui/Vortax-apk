@@ -1,18 +1,25 @@
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
+android {
+    namespace "com.example.otax"
+    compileSdk flutter.compileSdkVersion
+    ndkVersion flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
-}
 
-rootProject.buildDir = '../build'
-subprojects {
-    project.buildDir = "${rootProject.buildDir}/${project.name}"
-}
-subprojects {
-    project.evaluationDependsOn(':app')
-}
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 
-tasks.register("clean", Delete) {
-    delete rootProject.buildDir
+    defaultConfig {
+        applicationId "com.example.otax"
+        minSdk flutter.minSdkVersion
+        // Ubah targetSdkVersion atau compileSdk menjadi 35 atau 36 di sini:
+        targetSdk 35
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
+    
+    // ... bagian kode selanjutnya tetap ...
 }
